@@ -1,0 +1,19 @@
+<script setup lang="ts">
+import DataController from '@/components/DataController.vue'
+</script>
+
+<template>
+  <div class="my-3 mx-auto container">
+    <header class="font-bold text-4xl lg:text-5xl mx-5 mt-16 mb-10 text-center">
+      <span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-400"
+        >Vue.js 3</span
+      >
+      list experiment
+    </header>
+
+    <main>
+      <DataController />
+    </main>
+  </div>
+</template>
