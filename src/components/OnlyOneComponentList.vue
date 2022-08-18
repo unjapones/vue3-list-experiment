@@ -5,8 +5,10 @@
       :key="index"
       class="my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
       :class="{
-        'bg-indigo-500 border-indigo-300 text-white': c.HIGHLIGHT,
-        'bg-gray-50 border-slate-300 text-slate-600': !c.HIGHLIGHT
+        'bg-indigo-500 border-indigo-300 text-white dark:bg-indigo-700 dark:border-indigo-500':
+          c.HIGHLIGHT,
+        'bg-gray-50 border-slate-300 text-slate-600 dark:border-gray-600 dark:bg-gray-700 dark:text-slate-200':
+          !c.HIGHLIGHT
       }"
     >
       <div>
