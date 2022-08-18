@@ -7,6 +7,11 @@ Experiment project to test a couple of thing around vue.js@3:
 3. Use https://developer.mozilla.org/en-US/docs/Web/API/Performance.
 4. Learn a little about https://vuejs.org/guide/essentials/component-basics.html#dynamic-components.
 
+The repo should be available at:
+
+- https://github.com/unjapones/vue3-list-experiment
+- https://gitlab.com/jorgeshirai/vue3-list-experiment (because I'm checking it out of curiosity 🤓)
+
 ## Conclusions (so far)
 
 It looks like the measured update times and, if the UI experiences "little-freezes", varies depending on:
@@ -23,9 +28,9 @@ Open questions:
 
 - Add basic e2e test.
 - Set max in number input based on max population from countries.
-- Dark mode.
 - Unit tests.
-- Check how a virtualized vue component work ("Virtualize Large Lists" from vue's docs).
+- Check how a virtualized vue component works ("Virtualize Large Lists" from vue's docs).
+- ~~Dark mode.~~
 
 ## Project Setup (create-vue based)
 
