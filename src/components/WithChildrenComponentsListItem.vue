@@ -2,8 +2,8 @@
   <div
     class="my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
     :class="{
-      'bg-fuchsia-500 border-fuchsia-300 text-white': props.c.HIGHLIGHT,
-      'bg-gray-50 border-slate-200 text-slate-600': !props.c.HIGHLIGHT
+      'bg-fuchsia-500 border-fuchsia-300 text-white dark:bg-fuchsia-700 dark:border-fuchsia-500': props.c.HIGHLIGHT,
+      'bg-gray-50 border-slate-200 text-slate-600 dark:border-gray-600 dark:bg-gray-700 dark:text-slate-200': !props.c.HIGHLIGHT
     }"
   >
     <div>
