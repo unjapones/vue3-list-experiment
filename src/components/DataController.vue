@@ -21,8 +21,8 @@
           v-model="selection"
           class="my-2 w-full rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 text-sm dark:bg-slate-800 dark:border-gray-600"
         >
-          <option v-for="i in options.length" :value="i - 1" :key="i">
-            {{ options[i - 1].__name }}
+          <option v-for="[k] in options" :value="k" :key="k">
+            {{ k }}
           </option>
         </select>
       </div>
@@ -64,8 +64,8 @@
       </div>
     </div>
     <component
-      :is="options[selection]"
-      :id="options[selection].__name"
+      :is="options.get(selection)"
+      :id="selection"
       :countries="counstriesStore.filteredCountries"
     ></component>
   </div>
@@ -81,15 +81,16 @@ import { useStore as useMeasuresStore } from '@/stores/measures'
 const counstriesStore = useCountriesStore()
 
 // Component options to render and measure
-const options = [OnlyOneComponentList, WithChildrenComponentsList]
-const selection = ref(0)
+// const options = [OnlyOneComponentList, WithChildrenComponentsList]
+const options = new Map()
+options.set(OnlyOneComponentList.__name, OnlyOneComponentList)
+options.set(WithChildrenComponentsList.__name, WithChildrenComponentsList)
+const selection = ref(OnlyOneComponentList.__name)
 const measuresStores = useMeasuresStore()
 
 // The components will add the measures based on their name
 const measures = computed(() => {
-  return measuresStores.getGroupDurations(
-    options[selection.value].__name as string
-  )
+  return measuresStores.getGroupDurations(selection.value as string)
 })
 // Limit measures count to 6
 const count = computed(() =>

@@ -1,8 +1,10 @@
-const selectorInputPopulation = 'input[name=population]'
-const selectorSelectComponent = 'select'
-const selectorCountry = '.v3le-country'
-const selectorCountryHighlighted = '.v3le-country-highlighted'
-const countAllCountries = 250
+import {
+  selectorInputPopulation,
+  selectorSelectComponent,
+  selectorCountry,
+  selectorCountryHighlighted,
+  countAllCountries
+} from './utils'
 
 describe('Highlight countries by population', () => {
   beforeEach(() => {
