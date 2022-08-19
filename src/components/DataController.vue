@@ -12,6 +12,7 @@
           min="0"
           placeholder="Population number"
           class="my-2 w-full rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 dark:bg-slate-800 dark:border-gray-600 dark:placeholder-gray-500"
+          name="population"
           autofocus
         />
       </div>
@@ -76,11 +77,8 @@ import OnlyOneComponentList from '@/components/OnlyOneComponentList.vue'
 import WithChildrenComponentsList from '@/components/WithChildrenComponentsList.vue'
 import { useStore as useCountriesStore } from '@/stores/countries'
 import { useStore as useMeasuresStore } from '@/stores/measures'
-import data from '../assets/data.json'
 
-// Data to render by the components
 const counstriesStore = useCountriesStore()
-counstriesStore.setCountries(data)
 
 // Component options to render and measure
 const options = [OnlyOneComponentList, WithChildrenComponentsList]
