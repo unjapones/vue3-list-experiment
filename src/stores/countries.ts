@@ -1,4 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
+import data from '../assets/data.json'
 
 interface State {
   population: string
@@ -8,22 +9,14 @@ interface State {
 export const useStore = defineStore('countries', {
   state: (): State => ({
     population: '',
-    countries: []
+    countries: data
   }),
-  actions: {
-    setCountries(newCountries: any[]) {
-      this.$patch((state: State) => (state.countries = newCountries))
-    },
-    setPopulation(newPopulation: '') {
-      this.$patch((state: State) => (state.population = newPopulation))
-    }
-  },
   getters: {
     filteredCountries(state: State): any[] {
-      const minPopulation = Number.parseInt(this.population, 10)
+      const minPopulation = Number.parseInt(state.population, 10)
       if (Number.isInteger(minPopulation) && minPopulation > -1) {
         // @TODO: measure performance of these 2 blocks of code
-        // return this.countries.map((c) => {
+        // return state.countries.map((c) => {
         //   const newC = { ...c }
         //   if (newC.population > minPopulation) {
         //     newC.HIGHLIGHT = true
@@ -32,13 +25,18 @@ export const useStore = defineStore('countries', {
         //   }
         //   return newC
         // })
-        const t = [...this.countries] as any[]
-        for (let i = 0; i < t.length; i++) {
-          t[i].HIGHLIGHT = t[i].population > minPopulation
+        const t = [] as any[]
+        for (let i = 0; i < data.length; i++) {
+          t.push({
+            ...state.countries[i],
+            HIGHLIGHT: state.countries[i].population > minPopulation
+          })
         }
         return t
+      } else {
+        console.log('data')
+        return data
       }
-      return state.countries
     }
   }
 })

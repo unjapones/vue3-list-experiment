@@ -1,11 +1,11 @@
 <template>
-  <div class="columns-1 md:columns-2 lg:columns-4">
-    <div
+  <div class="v3le-oocl columns-1 md:columns-2 lg:columns-4">
+    <article
       v-for="(c, index) in props.countries"
       :key="index"
-      class="my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
+      class="v3le-country my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
       :class="{
-        'bg-indigo-500 border-indigo-300 text-white dark:bg-indigo-700 dark:border-indigo-500':
+        'v3le-country-highlighted bg-indigo-500 border-indigo-300 text-white dark:bg-indigo-700 dark:border-indigo-500':
           c.HIGHLIGHT,
         'bg-gray-50 border-slate-300 text-slate-600 dark:border-gray-600 dark:bg-gray-700 dark:text-slate-200':
           !c.HIGHLIGHT
@@ -19,14 +19,14 @@
         />
       </div>
       <div class="p-3">
-        <h3 class="mb-1 text-lg font-semibold">{{ c.name }}</h3>
+        <header class="mb-1 text-lg font-semibold">{{ c.name }}</header>
         <ul class="font-medium leading-7">
           <li>🤓 {{ c.population }}</li>
           <li>📍 {{ c.capital || 'Unknown' }}</li>
           <li>🌐 {{ `${c.region}, ${c.subregion || ''}` }}</li>
         </ul>
       </div>
-    </div>
+    </article>
   </div>
 </template>
 
