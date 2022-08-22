@@ -34,7 +34,6 @@ export const useStore = defineStore('countries', {
         }
         return t
       } else {
-        console.log('data')
         return data
       }
     }

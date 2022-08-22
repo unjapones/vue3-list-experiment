@@ -26,11 +26,11 @@ Open questions:
 
 ### TODO
 
-- Add basic e2e test.
 - Set max in number input based on max population from countries.
-- Unit tests.
 - Check how a virtualized vue component works ("Virtualize Large Lists" from vue's docs).
 - ~~Dark mode.~~
+- ~~Add basic e2e test.~~
+- ~~Unit tests.~~
 
 ## Project Setup (create-vue based)
 

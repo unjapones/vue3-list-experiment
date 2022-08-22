@@ -23,6 +23,11 @@ describe('Highlight countries by population', () => {
   })
 
   it('highlight cards with population greater than the input value', () => {
+    cy.get(selectorInputPopulation).type('0')
+    // There are 2 countries with population === 0
+    highLightChecks(248)
+    cy.get(selectorInputPopulation).clear()
+
     cy.get(selectorInputPopulation).type('1000000')
     highLightChecks(160)
     // Add a zero to previous value (should be less highlighted countries)

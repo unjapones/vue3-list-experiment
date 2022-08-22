@@ -1,6 +1,6 @@
 import { selectorDarkModeToggler, classNameDarkMode } from './utils'
 
-describe('Dark model toggler', () => {
+describe('Dark mode toggler', () => {
   beforeEach(() => {
     cy.visit('/')
   })
