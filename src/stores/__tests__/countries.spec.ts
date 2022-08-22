@@ -4,7 +4,7 @@ import { useStore } from '../countries'
 import data from '@/assets/data.json'
 
 describe('Store: countries', () => {
-  let store
+  let store: any
   function getHighlighted(countries: any[]): any[] {
     return countries.filter((c) => c.HIGHLIGHT === true)
   }
