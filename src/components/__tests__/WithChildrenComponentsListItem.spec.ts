@@ -17,6 +17,6 @@ describe('UnneededAbstractionsList', () => {
       HIGHLIGHT: false
     }
     const wrapper = mount(WithChildrenComponentsListItem, { props: { c } })
-    expect(wrapper.find('h3').text()).toContain(c.name)
+    expect(wrapper.find('header').text()).toContain(c.name)
   })
 })
