@@ -4,7 +4,7 @@ import DarkModeToggler from '@/components/DarkModeToggler.vue'
 </script>
 
 <template>
-  <div class="my-3 mx-auto container">
+  <div class="my-3 mx-auto">
     <DarkModeToggler class="absolute top-4 right-4 lg:top-6 lg:right-6" />
     <header class="font-bold text-4xl lg:text-5xl mx-5 mt-16 mb-10 text-center">
       <span

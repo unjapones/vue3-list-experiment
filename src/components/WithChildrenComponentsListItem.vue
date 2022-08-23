@@ -1,6 +1,6 @@
 <template>
   <article
-    class="v3le-country my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
+    class="v3le-country my-8 mx-4 sm:m-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden sm:w-72 sm:inline-block text-left truncate"
     :class="{
       'v3le-country-highlighted bg-fuchsia-500 border-fuchsia-300 text-white dark:bg-fuchsia-700 dark:border-fuchsia-500':
         props.c.HIGHLIGHT,
@@ -16,13 +16,17 @@
       />
     </div>
     <div class="p-3">
-      <header class="mb-1 text-lg font-semibold">
+      <header class="mb-1 text-lg font-semibold" :title="c.name">
         {{ props.c.name }}
       </header>
       <ul class="font-medium leading-7">
-        <li>😎 {{ props.c.population }}</li>
-        <li>📍 {{ props.c.capital || 'Unknown' }}</li>
-        <li>🌐 {{ `${props.c.region}, ${props.c.subregion || ''}` }}</li>
+        <li :title="props.c.population">😎 {{ props.c.population }}</li>
+        <li :title="'props.c.capital' || 'Unknown'">
+          📍 {{ props.c.capital || 'Unknown' }}
+        </li>
+        <li :title="`${props.c.region}, ${props.c.subregion || ''}`">
+          🌐 {{ `${props.c.region}, ${props.c.subregion || ''}` }}
+        </li>
       </ul>
     </div>
   </article>

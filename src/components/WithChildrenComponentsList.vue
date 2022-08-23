@@ -1,5 +1,5 @@
 <template>
-  <div class="v3le-wccl columns-1 md:columns-2 lg:columns-4">
+  <div class="v3le-wccl text-center">
     <WithChildrenComponentsListItem
       v-for="(c, index) in props.countries"
       :key="index"

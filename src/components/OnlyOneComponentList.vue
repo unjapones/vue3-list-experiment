@@ -1,9 +1,9 @@
 <template>
-  <div class="v3le-oocl columns-1 md:columns-2 lg:columns-4">
+  <div class="v3le-oocl text-center">
     <article
       v-for="(c, index) in props.countries"
       :key="index"
-      class="v3le-country my-4 first:mt-0 last:mb-0 rounded-md border drop-shadow-md h-70 overflow-hidden break-inside-avoid-columnmd:flex"
+      class="v3le-country my-8 mx-4 sm:m-4 rounded-md border drop-shadow-md h-70 overflow-hidden sm:w-72 sm:inline-block text-left truncate"
       :class="{
         'v3le-country-highlighted bg-indigo-500 border-indigo-300 text-white dark:bg-indigo-700 dark:border-indigo-500':
           c.HIGHLIGHT,
@@ -19,11 +19,17 @@
         />
       </div>
       <div class="p-3">
-        <header class="mb-1 text-lg font-semibold">{{ c.name }}</header>
+        <header class="mb-1 text-lg font-semibold" :title="c.name">
+          {{ c.name }}
+        </header>
         <ul class="font-medium leading-7">
-          <li>🤓 {{ c.population }}</li>
-          <li>📍 {{ c.capital || 'Unknown' }}</li>
-          <li>🌐 {{ `${c.region}, ${c.subregion || ''}` }}</li>
+          <li :title="c.population">🤓 {{ c.population }}</li>
+          <li :title="'c.capital' || 'Unknown'">
+            📍 {{ c.capital || 'Unknown' }}
+          </li>
+          <li :title="`${c.region}, ${c.subregion || ''}`">
+            🌐 {{ `${c.region}, ${c.subregion || ''}` }}
+          </li>
         </ul>
       </div>
     </article>
