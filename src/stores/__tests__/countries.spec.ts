@@ -21,32 +21,31 @@ describe('Store: countries', () => {
     expect(store.countries).toStrictEqual(data)
   })
 
-  describe('Getter: filteredCountries', () => {
-    it("population: '', no country highlighted", () => {
-      expect(store.population).toBe('')
-      expect(getHighlighted(store.filteredCountries).length).toBe(0)
+  describe('Getter: populationAsNumber', () => {
+    it('should be -1 when population is ""', () => {
+      store.population = ''
+      expect(store.populationAsNumber).toBe(-1)
     })
-
-    it("population: '0', 248 countries highlighted (there are 2 with 0)", () => {
+    it('should be N (number) when population is string representing a number', () => {
       store.population = '0'
-      // "Bouvet Island" and "Heard Island and McDonald Islands" have population
-      // === 0 in data.json
-      expect(getHighlighted(store.filteredCountries).length).toBe(248)
+      expect(store.populationAsNumber).toBe(0)
+      store.population = '99'
+      expect(store.populationAsNumber).toBe(99)
     })
+  })
 
-    it("population: '1402112000', 0 countries highlighted (max population of data.json)", () => {
-      store.population = '1402112000'
-      expect(getHighlighted(store.filteredCountries).length).toBe(0)
+  describe('Getter: highlightedCount', () => {
+    it('should be 0 when population is ""', () => {
+      store.population = ''
+      expect(store.highlightedCount).toBe(0)
     })
-
-    it("population: '1000000', 160 countries highlighted (same as e2e)", () => {
+    it('should be 248 when population is "0"', () => {
+      store.population = '0'
+      expect(store.highlightedCount).toBe(248)
+    })
+    it('should be 160 when population is "1000000"', () => {
       store.population = '1000000'
-      expect(getHighlighted(store.filteredCountries).length).toBe(160)
-    })
-
-    it("population: '10000000', 91 countries highlighted (same as e2e)", () => {
-      store.population = '10000000'
-      expect(getHighlighted(store.filteredCountries).length).toBe(91)
+      expect(store.highlightedCount).toBe(160)
     })
   })
 })
