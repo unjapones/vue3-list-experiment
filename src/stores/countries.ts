@@ -12,30 +12,16 @@ export const useStore = defineStore('countries', {
     countries: data
   }),
   getters: {
-    filteredCountries(state: State): any[] {
-      const minPopulation = Number.parseInt(state.population, 10)
-      if (Number.isInteger(minPopulation) && minPopulation > -1) {
-        // @TODO: measure performance of these 2 blocks of code
-        // return state.countries.map((c) => {
-        //   const newC = { ...c }
-        //   if (newC.population > minPopulation) {
-        //     newC.HIGHLIGHT = true
-        //   } else {
-        //     delete newC.HIGHLIGHT
-        //   }
-        //   return newC
-        // })
-        const t = [] as any[]
-        for (let i = 0; i < data.length; i++) {
-          t.push({
-            ...state.countries[i],
-            HIGHLIGHT: state.countries[i].population > minPopulation
-          })
-        }
-        return t
-      } else {
-        return data
+    populationAsNumber(state: State): number {
+      const p = Number.parseInt(state.population, 10)
+      return Number.isInteger(p) && p > -1 ? p : -1
+    },
+    highlightedCount(state: State): number {
+      const p = this.populationAsNumber
+      if (p === -1) {
+        return 0
       }
+      return state.countries.filter((c) => c.population > p).length
     }
   }
 })
