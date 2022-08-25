@@ -4,37 +4,50 @@ import data from '../assets/data.json'
 interface State {
   population: string
   countries: any[]
+  enableConsoleMessages: boolean
 }
 
 export const useStore = defineStore('countries', {
   state: (): State => ({
     population: '',
-    countries: data
+    countries: data,
+    enableConsoleMessages: false
   }),
   getters: {
-    filteredCountries(state: State): any[] {
-      const minPopulation = Number.parseInt(state.population, 10)
-      if (Number.isInteger(minPopulation) && minPopulation > -1) {
-        // @TODO: measure performance of these 2 blocks of code
-        // return state.countries.map((c) => {
-        //   const newC = { ...c }
-        //   if (newC.population > minPopulation) {
-        //     newC.HIGHLIGHT = true
-        //   } else {
-        //     delete newC.HIGHLIGHT
-        //   }
-        //   return newC
-        // })
-        const t = [] as any[]
-        for (let i = 0; i < data.length; i++) {
-          t.push({
-            ...state.countries[i],
-            HIGHLIGHT: state.countries[i].population > minPopulation
+    populationAsNumber(state: State): number {
+      const p = Number.parseInt(state.population, 10)
+      return Number.isInteger(p) && p > -1 ? p : -1
+    },
+    highlightedCount(state: State): number {
+      const p = this.populationAsNumber
+      if (p === -1) {
+        return 0
+      }
+      return state.countries.filter((c) => c.population > p).length
+    },
+    // To simulate getting results from an API/Backend + stick to Grid component
+    // from vue-virtual-scroll-grid
+    getPaginated(state: State): (p: number, s: number) => Promise<any[]> {
+      return (pageNumber: number, pageSize: number) => {
+        const result = state.countries.slice(
+          pageNumber * pageSize,
+          pageNumber * pageSize + pageSize
+        )
+        if (state.enableConsoleMessages)
+          console.debug('getPaginated-req', {
+            pageNumber,
+            pageSize
           })
-        }
-        return t
-      } else {
-        return data
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (this.enableConsoleMessages)
+              console.debug('getPaginated-RES', {
+                pageNumber,
+                pageSize
+              })
+            resolve(result)
+          }, 1500)
+        })
       }
     }
   }

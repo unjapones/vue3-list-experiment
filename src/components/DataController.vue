@@ -1,13 +1,13 @@
 <template>
-  <div class="mx-3 md:mx-auto">
-    <div class="mb-4 max-w-lg text-center mx-auto">
+  <div>
+    <div class="mb-4 max-w-lg text-center sm:mx-auto">
       <div>
         <label for="filter" class="text-gray-500 dark:text-gray-400"
           >Highlight population larger than:</label
         >
         <input
           id="filter"
-          v-model="counstriesStore.population"
+          v-model="countriesStore.population"
           type="number"
           min="0"
           placeholder="Population number"
@@ -17,83 +17,28 @@
         />
       </div>
       <div>
-        <select
-          v-model="selection"
-          class="my-2 w-full rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 text-sm dark:bg-slate-800 dark:border-gray-600"
-        >
-          <option v-for="[k] in options" :value="k" :key="k">
-            {{ k }}
-          </option>
-        </select>
-      </div>
-      <div>
         <span
-          v-if="count === 0"
           class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold text-slate-600 bg-slate-400/10 dark:text-slate-300 dark:bg-slate-700"
-          >Update times (ms)</span
+          >Highlighted countries</span
         >
         <span
-          v-if="count === 0"
           class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold text-green-600 bg-green-400/10 dark:text-green-300 dark:bg-green-800"
-          >&le; 10</span
-        >
-        <span
-          v-if="count === 0"
-          class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold text-amber-600 bg-amber-400/10 dark:text-amber-300 dark:bg-amber-800"
-          >&le; 30</span
-        >
-        <span
-          v-if="count === 0"
-          class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold text-red-600 bg-red-400/10 dark:text-red-300 dark:bg-red-800"
-          >&gt; 30</span
-        >
-        <span
-          v-for="i in count"
-          :key="i"
-          class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold"
-          :class="{
-            'text-green-600 bg-green-400/10 dark:text-green-300 dark:bg-green-800':
-              Number.parseFloat(measures[i - 1]) <= 10,
-            'text-amber-600 bg-amber-400/10 dark:text-amber-300 dark:bg-amber-800':
-              Number.parseFloat(measures[i - 1]) > 10,
-            'text-red-600 bg-red-400/10 dark:text-red-300 dark:bg-red-800':
-              Number.parseFloat(measures[i - 1]) > 30
-          }"
-          >{{ measures[i - 1] }}</span
+          >{{ countriesStore.highlightedCount }}</span
         >
       </div>
     </div>
-    <component
-      :is="options.get(selection)"
-      :id="selection"
-      :countries="counstriesStore.filteredCountries"
-    ></component>
+    <OnlyOneComponentList
+      :min-population="countriesStore.populationAsNumber"
+      :countries-length="countriesStore.countries.length"
+      :countries-provider="countriesStore.getPaginated"
+      class="h-full overflow-scroll mx-auto container"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import OnlyOneComponentList from '@/components/OnlyOneComponentList.vue'
-import WithChildrenComponentsList from '@/components/WithChildrenComponentsList.vue'
 import { useStore as useCountriesStore } from '@/stores/countries'
-import { useStore as useMeasuresStore } from '@/stores/measures'
 
-const counstriesStore = useCountriesStore()
-
-// Component options to render and measure
-// const options = [OnlyOneComponentList, WithChildrenComponentsList]
-const options = new Map()
-options.set(OnlyOneComponentList.__name, OnlyOneComponentList)
-options.set(WithChildrenComponentsList.__name, WithChildrenComponentsList)
-const selection = ref(OnlyOneComponentList.__name)
-const measuresStores = useMeasuresStore()
-
-// The components will add the measures based on their name
-const measures = computed(() => {
-  return measuresStores.getGroupDurations(selection.value as string)
-})
-// Limit measures count to 6
-const count = computed(() =>
-  measures.value.length > 6 ? 6 : measures.value.length
-)
+const countriesStore = useCountriesStore()
 </script>
