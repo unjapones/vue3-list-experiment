@@ -7,7 +7,7 @@
         >
         <input
           id="filter"
-          v-model="counstriesStore.population"
+          v-model="countriesStore.population"
           type="number"
           min="0"
           placeholder="Population number"
@@ -23,16 +23,16 @@
         >
         <span
           class="mx-1 md:mx-2 px-2 py-0.5 text-xs rounded-full font-semibold text-green-600 bg-green-400/10 dark:text-green-300 dark:bg-green-800"
-          >{{ counstriesStore.highlightedCount }}</span
+          >{{ countriesStore.highlightedCount }}</span
         >
       </div>
     </div>
     <OnlyOneComponentList
-      :id="'OnlyOneComponentList'"
-      :countries="counstriesStore.countries"
-      :min-population="counstriesStore.populationAsNumber"
+      :min-population="countriesStore.populationAsNumber"
+      :countries-length="countriesStore.countries.length"
+      :countries-provider="countriesStore.getPaginated"
       class="h-full overflow-scroll mx-auto container"
-    ></OnlyOneComponentList>
+    />
   </div>
 </template>
 
@@ -40,5 +40,5 @@
 import OnlyOneComponentList from '@/components/OnlyOneComponentList.vue'
 import { useStore as useCountriesStore } from '@/stores/countries'
 
-const counstriesStore = useCountriesStore()
+const countriesStore = useCountriesStore()
 </script>

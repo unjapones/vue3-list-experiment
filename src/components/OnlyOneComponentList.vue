@@ -1,10 +1,10 @@
 <template>
   <div class="v3le-oocl">
     <Grid
-      :length="props.countries.length"
-      :page-size="10"
-      :page-provider="pageP"
-      :page-provider-debounce-time="950"
+      :length="countriesLength"
+      :page-size="5"
+      :page-provider="countriesProvider"
+      :page-provider-debounce-time="750"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:justify-items-center"
     >
       <template v-slot:default="{ item, style }">
@@ -74,14 +74,11 @@
 <script setup lang="ts">
 import Grid from 'vue-virtual-scroll-grid'
 
-const props = defineProps({
-  id: { type: String, required: true },
-  countries: { type: Object, required: true },
-  minPopulation: { type: Number, required: true }
-})
-
-// Needed by Grid
-async function pageP(pN: number, pS: number) {
-  return props.countries.slice(pN * pS, pN * pS + pS)
+interface Props {
+  minPopulation: number
+  countriesLength: number
+  countriesProvider: (p: number, s: number) => Promise<any[]>
 }
+
+const props = defineProps<Props>()
 </script>

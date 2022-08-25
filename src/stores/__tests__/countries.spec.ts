@@ -34,6 +34,25 @@ describe('Store: countries', () => {
     })
   })
 
+  describe('Getter: getPaginated', async () => {
+    it('resolves to an []: starting from page argument, and with N size (length) argument', async () => {
+      const res1 = await store.getPaginated(0, 2)
+      expect(res1[0].name).toBe('Afghanistan')
+      expect(res1[1].name).toBe('Åland Islands')
+      expect(res1.length).toBe(2)
+      const res2 = await store.getPaginated(1, 2)
+      expect(res2[0].name).toBe('Albania')
+      expect(res2[1].name).toBe('Algeria')
+      expect(res2.length).toBe(2)
+      const res3 = await store.getPaginated(0, 4)
+      expect(res1[0].name).toBe('Afghanistan')
+      expect(res1[1].name).toBe('Åland Islands')
+      expect(res3[2].name).toBe('Albania')
+      expect(res3[3].name).toBe('Algeria')
+      expect(res3.length).toBe(4)
+    })
+  })
+
   describe('Getter: highlightedCount', () => {
     it('should be 0 when population is ""', () => {
       store.population = ''
